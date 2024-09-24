@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.15;
+contract MySample {
+    mapping (address => uint) public balancedRecived;
+    function depositFunds() payable public {
+        balancedRecived[msg.sender] += msg.value;
+    }
+    function Getcontractbalance() public view returns (uint) {
+        return address(this).balance;
+    }
+    function withdrawAll (address payable  _to) public {
+        uint blanaceTosendOut = balancedRecived[msg.sender];
+        balancedRecived[msg.sender] = 0;
+        _to.transfer(blanaceTosendOut);
+
+    }
+}
